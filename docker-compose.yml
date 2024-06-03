@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  users-service:
+    build:
+      context: ./users-service
+    ports:
+      - "8001:8000"
+    depends_on:
+      - database
+      - rabbitmq
+    environment:
+      DATABASE_URL: "mysql://root:root@database:3306/symfony_task"
+      MESSENGER_TRANSPORT_DSN: "amqp://guest:guest@rabbitmq:5672/%2f/messages"
+    volumes:
+      - ./users-service:/app
+
+  notifications-service:
+    build:
+      context: ./notifications-service
+    depends_on:
+      - rabbitmq
+    environment:
+      DATABASE_URL: "mysql://root:root@database:3306/symfony_task"
+      MESSENGER_TRANSPORT_DSN: "amqp://guest:guest@rabbitmq:5672/%2f/messages"
+    volumes:
+      - ./notifications-service:/app
+
+  database:
+    image: mysql:5.7.39
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony_task
+    ports:
+      - "3307:3306"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
