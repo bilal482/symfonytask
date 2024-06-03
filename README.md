@@ -24,13 +24,18 @@ This application consists of two microservices: `users` and `notifications`. The
 2. Add the project path in docker references, and restart the docker
 
 3. **Run the Docker command**
+    ```sh
     docker-compose up --build
 
 4. **Run database migrations for the database schema**
+
+    ```sh
     docker-compose exec users-service php bin/console doctrine:schema:update --force
     docker-compose exec notifications-service php bin/console doctrine:schema:update --force
 
 5. **Run the Notifications**
+
+    ```sh
     docker-compose exec notifications-service php bin/console messenger:consume async --env=prod
 
 
