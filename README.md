@@ -15,6 +15,12 @@ This application consists of two microservices: `users` and `notifications`. The
    git clone https://github.com/bilal482/symfonytask.git
    cd symfonytask
 
+    cd users-service
+    composer install
+    cd ../notifications-service
+    composer install
+
+
 2. Add the project path in docker references, and restart the docker
 
 3. **Run the Docker command**
@@ -72,4 +78,4 @@ symfonytask/
 ├──  docker-compose.yml
 
 
-This is the majore DOD,
+This is Major DoD, I just explained everything. I hope I have explained adequately. But if there is any question you can ask me.
